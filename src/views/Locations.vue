@@ -135,6 +135,9 @@
     },
     created() {
       this.locationNum = parseInt(this.$route.params.locationNum, 10)
+    },
+    beforeRouteUpdate (to) {
+      this.locationNum = parseInt(to.params.locationNum, 10)
     }
   }
 </script>
