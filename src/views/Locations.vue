@@ -221,7 +221,7 @@
             ],
           },
           {
-            name: "Higginson Park - Reolute Cafe",
+            name: "Higginson Park - Resolute Cafe",
             letter: "D",
             clue: [
               "You found me! Well done!",
