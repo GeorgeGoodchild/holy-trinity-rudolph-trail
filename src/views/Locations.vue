@@ -328,7 +328,7 @@
     },
     methods: {
       getStarted() {
-        this.$router.replace({name: "Home" })
+        this.$router.push({name: "Home" })
       },
       viewAnswerMap() {
         if (window.confirm("Are you really sure you want to see the answers?")) {
