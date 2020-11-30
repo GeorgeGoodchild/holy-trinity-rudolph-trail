@@ -10,7 +10,9 @@
       <img src="./assets/rudolph.png"/>
     </div>
     <div id="content">
-      <router-view :key="$route.fullPath"/>
+      <transition name="fade" mode="out-in">
+        <router-view :key="$route.fullPath"/>
+      </transition>
     </div>
   </div>
 </template>
@@ -51,5 +53,11 @@
       height: 200px;
     }
   }
-
+  fade-enter-active, .fade-leave-active {
+    transition: opacity .3s ease;
+  }
+  .fade-enter, .fade-leave-to
+  /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
 </style>

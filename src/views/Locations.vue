@@ -1,5 +1,10 @@
 <template>
   <div id="instructions">
+    <div id="banner">
+      <img src="../assets/banner.png"/>
+      <span v-if="!isCorrectAnswer">{{ currentLocation.knownLetters }}</span>
+      <span v-else>REINDEER</span>
+    </div>
     <div id="location">
       <label >Your Location</label>
       <h2>{{ currentLocation.name }}</h2>
@@ -20,20 +25,34 @@
         </ul>
       </blockquote>
 
+      <div class="wantToPlay">
+        <label>Want to play?</label>
+        <span class="spoiler">Sure! Everyone is invited!</span>
+        <button class="btn" @click="getStarted()">Get Started!</button>
+      </div>
+
       <div id="stuck">
         <label>Really Stuck?</label>
         <span class="spoiler">SPOILER ALERT!</span>
-        <span> You will see all the locations :(</span>
+        <span> You will see all the locations though, boo!</span>
         <button class="btn" @click="viewAnswerMap()">Check the locations map</button>
       </div>
     </div>
 
+    
+
     <div v-if="isLastLocation" id="submit">
       <h1 class="spoiler">Well Done!</h1>
-      <span>All you need to do now is</span>
-      <button class="btn" @click="submitAnswer()">Submit your answer here</button>
-    </div>
+      <span>All you need to do now is unscamble the letters to enter the prize draw</span>
+      <input placeholder="Answer here..." v-model="answer" />
+      <button class="btn" :disabled="!isCorrectAnswer" @click="submitAnswer()">Enter the prize draw!</button>
 
+      <div class="wantToPlay">
+        <label>Want to play?</label>
+        <span class="spoiler">Sure! Everyone is invited!</span>
+        <button class="btn" @click="getStarted()">Get Started!</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,6 +74,23 @@
     flex-direction: column;
   }
 
+  #banner {
+    
+    margin-top: -30px;
+    text-align: center;
+    img {
+      height: 75px;
+    }
+    span {
+      margin-top: -60px;
+      margin-bottom: 30px;;
+      display: block;
+      font-size: 2rem;
+      text-transform: uppercase;
+      transform: rotateZ(-7deg);
+    }
+  }
+
   #letter {
     h1 {
       font-size: 4rem;
@@ -67,10 +103,10 @@
     }
 
     blockquote {
-      font-family: Georgia, serif;
       position: relative;
       margin: 0.5em;
       padding: 0.5em 0.5em 0.5em 0.5em;
+      line-height: 1.6;
     }
     blockquote:before {
         font-family: Georgia, serif;
@@ -97,7 +133,7 @@
     .btn {
       background-color: #aaa;
       color: black;
-      border: 2px solid #aaa;
+      border: 2px solid #888;
     }
     .btn:hover {
       color: black;
@@ -105,7 +141,7 @@
     }
   }
 
-  #stuck,#submit {
+  #stuck,#submit,.wantToPlay {
     label, span, a {
       display: block;
     }
@@ -117,12 +153,21 @@
       margin: 10px;
       color: white;
     }
+    input {
+      width:100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
   }
 
   .btn {
     margin-top: 10px;
     cursor: pointer;
-    background-color: #4CAF50;
+    background-color: #204333;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -131,22 +176,29 @@
     display: inline-block;
     font-size: 16px;
     transition-duration: 0.4s;
-    border: 2px solid #4CAF50;
+    border: 2px solid #F4C059;
     border-radius: 4px;
   }
 
   .btn:hover {
     background-color: white;
-    color: #4CAF50;
+    color: #204333;
   }
+
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
 </style>
 
 <script>
   export default {
-    name: 'Clues',
+    name: 'Locations',
     data() {
       return {
         locationNum: 0,
+        answer: "",
         locations: [
           {
             name: "Holy Trinity School",
@@ -154,7 +206,8 @@
             clue: [
               "Perhaps I can be found among two wheels in this shop,",
               "A sleigh for a new bike is what I'd like to swap!"
-            ]
+            ],
+            knownLetters: "????????"
           },
           {
             name: "Saddle Safari",
@@ -162,7 +215,8 @@
             clue: [
               "I could be munching on candy-canes and sweets galore,",
               "If I've been there you may find them all over the floor!"
-            ]
+            ],
+            knownLetters: "E???????"
           },
           {
             name: "Mr Simms Sweet Shop",
@@ -172,7 +226,8 @@
               "Black stripes on orange make me run for the door.",
               "A curry aroma I can smell on the breeze,",
               "But too much chilli is making me sneeze!"
-            ]
+            ],
+            knownLetters: "EN??????"
           },
           {
             name: "Tiger Garden",
@@ -180,7 +235,8 @@
             clue: [
               "This is where I would go if Santa's toy sack was empty,",
               "For girls and boys there are gifts a-plenty!"
-            ]
+            ],
+            knownLetters: "ENR?????"
           },
           {
             name: "Marlow Toys",
@@ -188,7 +244,8 @@
             clue: [
               "The smell of bread baking was just too much to resist,",
               "The cakes are so good they can't be missed!",
-            ]
+            ],
+            knownLetters: "ENRE????"
           },
           {
             name: "Burgers",
@@ -198,7 +255,8 @@
               "The sound of bells ringing is what you usually hear.",
               "Singing carols and praying you do here each December,",
               "And you will again soon is what you must remember."
-            ]
+            ],
+            knownLetters: "ENRER???"
           },
           {
             name: "All Saints Church",
@@ -208,7 +266,8 @@
               "Here they get moved from waters low up to high.",
               "The weir might be near so please take good care,",
               "You don't want to give your parents a scare."
-            ]
+            ],
+            knownLetters: "ENRERI??"
           },
           
           {
@@ -219,6 +278,7 @@
               "The pirate ship, swings and even a cafe,",
               "Round-abouts and slides, we could be here all day."
             ],
+            knownLetters: "ENRERIE?"
           },
           {
             name: "Higginson Park - Resolute Cafe",
@@ -229,7 +289,8 @@
               "Now unscamble the letters so they're not in disguise.",
               "Merry Chistmas to you all from Holy Trinity PTA,",
               "You're now free to go and enjoy a play :)"
-            ]
+            ],
+            knownLetters: "ENRERIED"
           }
         ],
         mapsUrl: "https://www.google.com/maps/d/viewer?mid=1F3Y_pgHXAY7Ns32W2-Md9ejdgbiMZTy5&usp=sharing",
@@ -246,13 +307,16 @@
       isLastLocation() {
         return this.locationNum == this.locations.length - 1;
       },
+      isCorrectAnswer() {
+        return this.answer?.toUpperCase().trim() === "REINDEER";
+      }
     },
     created() {
       this.locationNum = parseInt(this.$route.params.locationNum, 10)
     },
     watch: {
-      locationNum: function(val) {
-        if (val === 8) {
+      isCorrectAnswer: function(val) {
+        if (val) {
           window.confetti.start()
         } else {
           window.confetti.stop()
@@ -263,9 +327,13 @@
       this.locationNum = parseInt(to.params.locationNum, 10);
     },
     methods: {
+      getStarted() {
+        this.$router.replace({name: "Home" })
+      },
       viewAnswerMap() {
-        if (window.confirm("Are you really sure you want to see the answers?"))
-        window.open(this.mapsUrl, "_blank")
+        if (window.confirm("Are you really sure you want to see the answers?")) {
+          window.open(this.mapsUrl, "_blank")
+        }
       },
       submitAnswer() {
         window.open(this.submissionUrl, "_blank")
