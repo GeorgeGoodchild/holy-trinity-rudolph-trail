@@ -39,8 +39,6 @@
       </div>
     </div>
 
-    
-
     <div v-if="isLastLocation" id="submit">
       <h1 class="spoiler">Well Done!</h1>
       <span>All you need to do now is unscamble the letters to enter the prize draw</span>

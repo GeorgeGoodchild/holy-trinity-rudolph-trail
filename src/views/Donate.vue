@@ -9,7 +9,7 @@
     </div>
     <div class="actions">
       <label>Thank-you :) :) :)</label>
-      <button class="btn" @click="goBack()">Back</button>
+      <button class="btn" @click="goHome()">Home</button>
     </div>
   </div>
 </template>
@@ -80,8 +80,8 @@
   export default {
     name: 'Donate',
     methods: {
-      goBack() {
-        this.$router.go(-1);
+      goHome() {
+        this.$router.push({ name: "Home" });
       }
     }
   }
