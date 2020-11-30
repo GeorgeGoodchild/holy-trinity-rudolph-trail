@@ -14,7 +14,7 @@
       </blockquote>
     </div>
     <div class="actions">
-      <h4>Rudolph and the children would be very grateful if you could donate a little!</h4>
+      <h4>Rudolph and the children and parents at Holy Trinity School would be very grateful if you could donate a little to the school PTA!</h4>
       <span>Thank-you :)</span>
       <button class="btn" @click="donate()">Donate!</button>
     </div>
