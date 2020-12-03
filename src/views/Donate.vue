@@ -5,10 +5,14 @@
       <span>THANK-YOU!</span>
     </div>
     <div class="actions">
-      LINK TO PAYPAL TO GO HERE
+      <p>Holy Trinity parents you can make a donation through parent pay.</p>
+      <p>Everybody else (and Holy Trinity parents if they'd prefer) please click the PayPal.me link below</p>
+      <a :href="payPalUrl" target="_blank">
+        <img src="../assets/paypalme.png"/>
+      </a>
     </div>
     <div class="actions">
-      <label>Thank-you :) :) :)</label>
+      <label>Thank-you :) </label>
       <button class="btn" @click="goHome()">Home</button>
     </div>
   </div>
@@ -47,6 +51,11 @@
   .actions {
     margin-top:20px;
 
+    img {
+      height: 75px;
+      border: 2px solid #F4C059;
+      border-radius: 4px;
+    }
     label, span, a {
       display: block;
     }
@@ -79,6 +88,11 @@
 <script>
   export default {
     name: 'Donate',
+    data() {
+      return {
+        payPalUrl:"https://paypal.me/holytrinitymarlowpta"
+      }
+    },
     methods: {
       goHome() {
         this.$router.push({ name: "Home" });
