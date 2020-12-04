@@ -45,6 +45,9 @@
       <input placeholder="Answer here..." v-model="answer" />
       <button class="btn" :disabled="!isCorrectAnswer" @click="submitAnswer()">Enter the prize draw!</button>
 
+      <span class="spoiler">As an extra bonus you can also enjoy a 25% discount on drinks from the Resolute Cafe if you let them know you have completed the trail :)</span>
+      <img src="../assets/resolute.png"/>
+
       <div class="wantToPlay">
         <label>Want to play?</label>
         <span class="spoiler">Sure! Everyone is invited!</span>
@@ -159,6 +162,14 @@
       font-size: 1.5rem;
       letter-spacing: 1px;
       text-transform: uppercase;
+    }
+  }
+
+  #submit {
+    img {
+      height: 75px;
+      border: 2px solid #F4C059;
+      border-radius: 4px;
     }
   }
 
