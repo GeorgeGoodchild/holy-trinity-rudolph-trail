@@ -42,7 +42,7 @@
     <div v-if="isLastLocation" id="submit">
       <h1 class="spoiler">Well Done!</h1>
       <span>All you need to do now is unscamble the letters to enter the prize draw</span>
-      <input placeholder="Answer here..." v-model="answer" />
+      <input placeholder="Answer here..." :value="answer" @input="(e) =>  answer= e.target.value" />
       <button class="btn" :disabled="!isCorrectAnswer" @click="submitAnswer()">Enter the prize draw!</button>
 
       <span class="spoiler">As an extra bonus you can also enjoy a 25% discount on drinks from the Resolute Cafe if you let them know you have completed the trail :)</span>
